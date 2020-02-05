@@ -1,6 +1,5 @@
 package com.revature.dao;
 
-import com.revature.model.Admin;
 import com.revature.model.User;
 
 public interface AdminDao {
@@ -12,7 +11,7 @@ public interface AdminDao {
 
 	// READ
 	public User selectUser(String uname);
-	public Admin checkLogin(String uname, String pword);
+	public boolean checkLogin(String uname, String pword);
 	
 	// UPDATE
 	public void updateUserFName(String uname, String input);

@@ -10,6 +10,6 @@ public interface UserService {
 	
 	public void removeUser();
 	
-	public void userLogin();
+	public int userLogin();
 
 }

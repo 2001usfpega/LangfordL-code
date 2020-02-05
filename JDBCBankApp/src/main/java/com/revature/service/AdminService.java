@@ -10,6 +10,6 @@ public interface AdminService {
 	
 	public void removeUser();
 	
-	public void adminLogin();
+	public int adminLogin();
 
 }

@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.revature.model.User;
-import com.revature.model.Admin;
 
 public class AdminDaoImpl implements AdminDao{
 	
@@ -16,10 +15,9 @@ public class AdminDaoImpl implements AdminDao{
 	private static String dbusername = System.getenv("BANK_DB_USERNAME");
 	private static String dbpassword = System.getenv("TRAINING_DB_PASSWORD");
 	
+	
 	@Override
-	public Admin checkLogin(String uname, String pword) {
-		Admin admin = null;
-		
+	public boolean checkLogin(String uname, String pword) {
 		try(Connection connection = DriverManager.getConnection(dburl, dbusername, dbpassword)){
 		    String sql = "SELECT * FROM adminb WHERE a_username = ? AND a_pword = ?";
 	        PreparedStatement statement = connection.prepareStatement(sql);
@@ -27,24 +25,25 @@ public class AdminDaoImpl implements AdminDao{
 	        statement.setString(2, pword);
  
 	        ResultSet rs = statement.executeQuery();
- 
 	        
- 
-	        if (rs.next()) {
-	            admin = new Admin();
-	            admin.setAdminid(rs.getInt(1));
-	            admin.setA_firstname(rs.getString(2));
-	            admin.setA_lastname(rs.getString(3));
-	            admin.setA_username(rs.getString(4));
-	            admin.setA_pword(rs.getString(5));
-	        }	        
-		}
-		catch(SQLException e) {
-			e.printStackTrace();			
-		}  
-		
-		return admin;
-	}
+	        String Uname = "";
+	        String Pass = "";
+	        
+	        while (rs.next()) {
+                Uname = rs.getString(4);
+                Pass = rs.getString(5);
+            } 
+	        if (Pass.equals(pword) & Uname.equals(uname)) {
+                return true;
+            }
+        }
+        catch (SQLException e) {
+        	e.printStackTrace();
+        }  
+        return false;
+    }
+	
+	
 	@Override
 	public void insertUser(String fname, String lname, String uname, String pass) {
 		
@@ -56,6 +55,8 @@ public class AdminDaoImpl implements AdminDao{
 			cs.setString(3, uname);
 			cs.setString(4, pass);
 			cs.executeUpdate();			
+			
+			System.out.println("This user has been successfully registered.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -93,6 +94,8 @@ public class AdminDaoImpl implements AdminDao{
 			ps.setString(1, input);
 			ps.setString(2, uname);	
 			ps.executeUpdate();
+			
+			System.out.println("Update successful.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -107,6 +110,8 @@ public class AdminDaoImpl implements AdminDao{
 			ps.setString(1, input);
 			ps.setString(2, uname);	
 			ps.executeUpdate();
+			
+			System.out.println("Update successful.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -121,6 +126,8 @@ public class AdminDaoImpl implements AdminDao{
 			ps.setString(1, input);
 			ps.setString(2, uname);	
 			ps.executeUpdate();
+			
+			System.out.println("Update successful.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -135,6 +142,8 @@ public class AdminDaoImpl implements AdminDao{
 			ps.setString(1, input);
 			ps.setString(2, uname);	
 			ps.executeUpdate();
+			
+			System.out.println("Update successful.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -149,6 +158,8 @@ public class AdminDaoImpl implements AdminDao{
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, uname);
 			ps.executeUpdate();
+			
+			System.out.println("This user has been successfully deleted.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			

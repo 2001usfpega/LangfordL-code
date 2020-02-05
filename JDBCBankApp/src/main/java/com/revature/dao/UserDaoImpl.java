@@ -27,6 +27,7 @@ public class UserDaoImpl implements UserDao{
 			cs.setString(4, pass);
 			cs.executeUpdate();					
 			
+			System.out.println("This user has been successfully registered.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -64,6 +65,8 @@ public class UserDaoImpl implements UserDao{
 			ps.setString(1, input);
 			ps.setString(2, uname);	
 			ps.executeUpdate();
+			
+			System.out.println("Update successful.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -78,6 +81,8 @@ public class UserDaoImpl implements UserDao{
 			ps.setString(1, input);
 			ps.setString(2, uname);	
 			ps.executeUpdate();
+			
+			System.out.println("Update successful.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -92,6 +97,8 @@ public class UserDaoImpl implements UserDao{
 			ps.setString(1, input);
 			ps.setString(2, uname);	
 			ps.executeUpdate();
+			
+			System.out.println("Update successful.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -106,6 +113,8 @@ public class UserDaoImpl implements UserDao{
 			ps.setString(1, input);
 			ps.setString(2, uname);	
 			ps.executeUpdate();
+			
+			System.out.println("Update successful.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -120,6 +129,8 @@ public class UserDaoImpl implements UserDao{
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, uname);
 			ps.executeUpdate();
+			
+			System.out.println("This user has been successfully deleted.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -127,9 +138,7 @@ public class UserDaoImpl implements UserDao{
 	}	
 	
 	@Override
-	public User checkLogin(String uname, String pword) {
-		User user = null;
-		
+	public boolean checkLogin(String uname, String pword) {
 		try(Connection connection = DriverManager.getConnection(dburl, dbusername, dbpassword)){
 		    String sql = "SELECT * FROM userb WHERE username = ? AND pword = ?";
 	        PreparedStatement statement = connection.prepareStatement(sql);
@@ -137,23 +146,22 @@ public class UserDaoImpl implements UserDao{
 	        statement.setString(2, pword);
  
 	        ResultSet rs = statement.executeQuery();
- 
 	        
- 
-	        if (rs.next()) {
-	            user = new User();
-	            user.setUserid(rs.getInt(1));
-	            user.setFirstname(rs.getString(2));
-	            user.setLastname(rs.getString(3));
-	            user.setUsername(rs.getString(4));
-	            user.setPassword(rs.getString(5));
-	        }	        
-		}
-		catch(SQLException e) {
-			e.printStackTrace();			
-		}  
-		
-		return user;
-	}
+	        String Uname = "";
+	        String Pass = "";
+	        
+	        while (rs.next()) {
+                Uname = rs.getString(4);
+                Pass = rs.getString(5);
+            } 
+	        if (Pass.equals(pword) & Uname.equals(uname)) {
+                return true;
+            }
+        }
+        catch (SQLException e) {
+        	e.printStackTrace();
+        }  
+        return false;
+    }
 	
 }

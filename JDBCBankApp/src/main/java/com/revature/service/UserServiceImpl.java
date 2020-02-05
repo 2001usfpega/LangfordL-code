@@ -82,13 +82,16 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override 
-	public void userLogin(){
+	public int userLogin(){
 		
 		System.out.println("Please enter your username.");
 		String uname = scan.next();
 		System.out.println("Please enter your password.");
-		String pword = scan.next();
-		System.out.println(newUser.checkLogin(uname, pword));		
+		String pword = scan.next();		
+		if(newUser.checkLogin(uname, pword) == true) {
+			return 1;
+		}
+		return 0;		
 	}
 
 }

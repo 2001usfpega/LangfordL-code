@@ -10,7 +10,7 @@ public interface UserDao {
 
 	// READ
 	public User selectUser(String uname);
-	public User checkLogin(String uname, String pword);
+	public boolean checkLogin(String uname, String pword);
 	
 	// UPDATE
 	public void updateUserFName(String uname, String input);

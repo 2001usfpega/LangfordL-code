@@ -79,14 +79,16 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 	@Override
-	public void adminLogin() {
+	public int adminLogin() {
 
 		System.out.println("Please enter your username.");
 		String uname = scan.next();
 		System.out.println("Please enter your password.");
 		String pword = scan.next();
-		System.out.println(newAdmin.checkLogin(uname, pword));		
-		
+		if(newAdmin.checkLogin(uname, pword) == true) {
+			return 1;
+		}
+		return 0;		
 	}
 
 }

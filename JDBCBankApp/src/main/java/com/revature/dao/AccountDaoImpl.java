@@ -19,11 +19,13 @@ public class AccountDaoImpl implements AccountDao{
 	public void insertAccount(String uname, int amount) {
 		
 		try(Connection conn = DriverManager.getConnection(dburl, dbusername, dbpassword)){
-			String sql = "{ call insert_user_null_id(?,?) }";
+			String sql = "{ call insert_acct_null_id(?,?) }";
 			CallableStatement cs = conn.prepareCall(sql);
 			cs.setString(1, uname);//first question mark
 			cs.setInt(2, amount);//second question mark
-			cs.executeUpdate();			
+			cs.executeUpdate();	
+			
+			System.out.println("This account was successfully registered.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -76,6 +78,8 @@ public class AccountDaoImpl implements AccountDao{
 			ps.setInt(1, balance);
 			ps.setString(2, uname);	
 			ps.executeUpdate();
+			
+			System.out.println("Deposit successful.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -107,6 +111,8 @@ public class AccountDaoImpl implements AccountDao{
 			ps.setInt(1, balance);
 			ps.setString(2, uname);	
 			ps.executeUpdate();
+			
+			System.out.println("Withdrawal successful.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
@@ -120,6 +126,8 @@ public class AccountDaoImpl implements AccountDao{
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, uname);
 			ps.executeUpdate();
+			
+			System.out.println("This account was successfully deleted.");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();			
