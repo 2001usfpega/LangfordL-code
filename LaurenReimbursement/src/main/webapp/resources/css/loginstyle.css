@@ -1,0 +1,26 @@
+@charset "ISO-8859-1";
+
+
+body{
+	background-image: url(https://pngimage.net/wp-content/uploads/2018/06/professional-background-png-1.png);
+}
+
+.container{	
+	background-color: gray;
+	opacity: 0.7;
+	border-radius: 20px 20px 20px 20px;
+	-moz-border-radius: 20px 20px 20px 20px;
+	-webkit-border-radius: 20px 20px 20px 20px;
+}
+
+#LoginButton{
+	background-color: rosybrown;
+}
+
+.row > .col-sm-6 col-sm-offset-3{
+	top: 30%;
+	left: 30%;
+	
+}
+
+

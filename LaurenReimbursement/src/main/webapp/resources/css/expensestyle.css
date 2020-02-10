@@ -1,0 +1,20 @@
+@charset "ISO-8859-1";
+
+body{
+	background-image: url(https://pngimage.net/wp-content/uploads/2018/06/professional-background-png-1.png);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 2px solid black;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+
